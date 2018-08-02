@@ -21,6 +21,7 @@ question: |
   What is your county?
 fields: 
   - City: city
+    required: False
   - note: |
       <div id="notice" style="display: none" class="text-center">
         Did you mean <span id="user-city"></span>?
@@ -29,16 +30,15 @@ fields:
           <button id="no" class="btn btn-danger" type="button">No</button>
         </div>
       </div>
-  - County: county
+  - County: county      
     code: |
       countyList
 script: |
-  <script>
-    $(function() {
-      var hello = ${"hello"};
+  <script>      
       var recommended = [];
       var city = $("input.form-control");
       var county = $("select.form-control");
+      county.val("${get_user_info().get("subdivisionsecond")}")
       city.change(function() {
         county.prop("disabled", true);
         var city = $(this).val().toLowerCase().trim();
@@ -71,7 +71,6 @@ script: |
       if (city.val() !== "" && city.val !== undefined) {
         city.change();
       }
-    });
   </script>
 ---
 event: closestCounty
