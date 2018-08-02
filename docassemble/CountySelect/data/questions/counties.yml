@@ -63,6 +63,7 @@ script: |
       });
       $("#yes").click(function() {
         city.val(recommended[1]);
+        county.val(recommended[0]);
       });
       $("#no").click(function() {
         county.val("");
