@@ -45,7 +45,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.CountySelect',
-      version='0.0.2',
+      version='0.0.3',
       description=('A basic package to find a county by city/town in Massachusetts.'),
       long_description="## Overview\r\nThis package provides a way to ask the user's home county by city. \r\nIt reads the provided city and attempts to match with the closest county.\r\n\r\n## Usage\r\nThe package has a single file, counties.yml. To use it you should first include the question:\r\n```yaml\r\ninclude:\r\n  - docassemble.CountySelect:counties.yml\r\n```\r\nThen, you can request the variable `county` and the question will be provided. \r\nSince there are no mandatory blocks, you should make sure to order the code appropriately.\r\nFor example, you can say:\r\n```yaml:\r\ncode: |\r\n  need(some_other_variable, county)\r\n```\r\nYou can also set the `city` value to provide a default city.",
       long_description_content_type='text/markdown',

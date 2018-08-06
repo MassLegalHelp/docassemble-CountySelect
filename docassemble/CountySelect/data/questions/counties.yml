@@ -34,7 +34,8 @@ fields:
     code: |
       countyList
 script: |
-  <script>      
+  <script>   
+    $(function() {
       var recommended = [];
       var city = $("input.form-control");
       var county = $("select.form-control");
@@ -42,20 +43,22 @@ script: |
       city.change(function() {
         county.prop("disabled", true);
         var city = $(this).val().toLowerCase().trim();
-        url_action_call('closestCounty', {city: city }, function(data) {
-          if (data.county.length > 0) {
-            if (city === data.county[1]) {
-              $("#notice").hide();
-              county.prop("disabled", false).val(data.county[0]);
+        if (city !== "" && city !== undefined) {
+          url_action_call('closestCounty', {city: city }, function(data) {
+            if (data.county.length > 0) {
+              if (city === data.county[1]) {
+                $("#notice").hide();
+                county.prop("disabled", false).val(data.county[0]);
+              } else {
+                $("#notice").show();
+                $("#user-city").html(data.county[1]);
+                recommended = data.county;
+              }
             } else {
-              $("#notice").show();
-              $("#user-city").html(data.county[1]);
-              recommended = data.county;
+              county.prop("disabled", false).val("");
             }
-          } else {
-            county.prop("disabled", false).val("");
-          }
-        });
+          });
+        }
       });
       $("#yes, #no").click(function() {
         county.prop("disabled", false);
@@ -71,9 +74,11 @@ script: |
       if (city.val() !== "" && city.val !== undefined) {
         city.change();
       }
+    });
   </script>
 ---
 event: closestCounty
 code: |
   city = action_argument('city')
   json_response(dict(county=getClosestCounty(city)))
+---
