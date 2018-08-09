@@ -15,4 +15,4 @@ For example, you can say:
 code: |
   need(some_other_variable, county)
 ```
-You can also set the `city` value to provide a default city. 
+You can also set the `city` value to provide a default city.
